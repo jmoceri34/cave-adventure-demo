@@ -1,0 +1,14 @@
+version: 2
+importPivots: 0
+tpsheetFileNames:
+- Assets/CaveGuy/CaveGuySpriteSheet.tpsheet
+- Assets/CaveTileset/Art/CaveTilesetSpriteSheet.tpsheet
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
+textureFileNames:
+- Assets\CaveGuy/CaveGuySpriteSheet.png
+- Assets\CaveTileset\Art/CaveTilesetSpriteSheet.png
+- Assets/codeandweb.com/Example/SpriteSheet/sprites.png
+normalmapFileNames:
+- 
+- 
+- Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
