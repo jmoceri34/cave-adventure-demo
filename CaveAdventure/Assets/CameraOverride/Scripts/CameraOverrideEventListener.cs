@@ -5,7 +5,7 @@
 
     public class CameraOverrideEventListener : MonoBehaviour
     {
-        public bool SetCameraOffsetRelativeToObject;
+        public bool SetCameraOffsetRelativeToObject = true;
         public bool SetCameraOffset;
         public bool SetCameraOffsetX;
         public bool SetCameraOffsetY;
