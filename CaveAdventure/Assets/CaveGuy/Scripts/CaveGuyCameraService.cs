@@ -50,18 +50,24 @@
         
         public void FollowTarget(CaveGuyModel model)
         {
+            // set the orthographic size to the desired size
             Cam.orthographicSize = (Screen.height / 100f) / 4f;
 
             var x = CameraTransform.position.x;
             var y = CameraTransform.position.y;
+
             var offsetX = (Offset.x * Mathf.Sign(model.CaveGuyTransform.localScale.x)); // scale determines direction, and creates an implicit deadzone based on it's sign
 
+            // get the viewport position of the player
             var caveGuyViewportPosition = Camera.main.WorldToViewportPoint(model.CaveGuyTransform.position);
 
+            // get the updated x position accounting for the x offset
             var newX = Mathf.MoveTowards(CameraTransform.position.x, model.CaveGuyTransform.position.x + offsetX, SmoothTimeX);
             
+            // if we're not inside a dead zone, check to see if we need to be
             if (!FollowTargetX)
             {
+                // keep the player within the middle 50% of the screen
                 if(caveGuyViewportPosition.x <= 0.25f || model.CaveGuyTransform.position.x < LastCaveGuyXPositionLeft) // Don't do equals otherwise it'll snap every direction change
                 {
                     FollowTargetX = true;
@@ -72,6 +78,7 @@
                 }
             }
             
+            // if we're at the dead zone boundary, update x
             if (FollowTargetX) // apply the new x transformation
             {
                 x = newX;
@@ -81,7 +88,6 @@
             {
                 y = Mathf.MoveTowards(CameraTransform.position.y, NewY, SmoothTimeY);
             }
-
 
             CameraTransform.position = new Vector3(x, y, CameraTransform.position.z); // finally, update the cameras position regardless
         }
@@ -93,9 +99,14 @@
             Offset = new Vector2(x ?? Offset.x, y ?? Offset.y);
         }
 
-        public void SetYPosition(CaveGuyModel model, Vector2 relativeTo)
+        public void SetYPosition(CaveGuyModel model, Vector2? relativeTo)
         {
-            NewY = relativeTo.y + Offset.y;
+            NewY = Offset.y;
+
+            if (relativeTo != null)
+            {
+                NewY += relativeTo.Value.y;
+            }
 
             if(UnfollowYCouroutine != null)
                 StopCoroutine(UnfollowYCouroutine);
@@ -113,11 +124,6 @@
                 yield return null;
             }
             FollowTargetY = false;
-        }
-
-        public void SetCameraFollowY(bool choice)
-        {
-            FollowTargetY = choice;
         }
         #endregion
 

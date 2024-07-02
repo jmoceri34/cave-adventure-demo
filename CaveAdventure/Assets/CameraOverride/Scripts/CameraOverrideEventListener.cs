@@ -5,20 +5,20 @@
 
     public class CameraOverrideEventListener : MonoBehaviour
     {
-        public bool SetCameraOffsetRelativeToObject = true;
-        public bool SetCameraOffset;
+        // adjust the cameras Y position relative to another object
+        public bool SetCameraOffsetYRelativeToObject = true;
+
+        // set a manual x offset
         public bool SetCameraOffsetX;
+
+        // set a manual y offset
         public bool SetCameraOffsetY;
-        public bool FollowY;
-        public bool UnfollowY;
-
+        
+        // the offset value to use
         public Vector2 NewOffset;
-        public GameObject RelativeObject;
 
-        void OnTriggerEnter2D(Collider2D collider)
-        {
-            
-        }
+        // the relative objects y position to use
+        public GameObject RelativeObject;
 
         // Not sure which is better, stay or enter, we'll see
         void OnTriggerStay2D(Collider2D collider)
@@ -26,29 +26,15 @@
             var bll = collider.GetComponentInParent<CaveGuyBll>();
             if (bll != null)
             {
-                if (SetCameraOffsetRelativeToObject)
+                if (SetCameraOffsetYRelativeToObject)
                     bll.SetYPosition(RelativeObject.transform.position);
-
-                if (SetCameraOffset)
-                    bll.SetCameraOffset(NewOffset.x, NewOffset.y);
 
                 if (SetCameraOffsetX)
                     bll.SetCameraOffset(NewOffset.x, null);
 
                 if (SetCameraOffsetY)
                     bll.SetCameraOffset(null, NewOffset.y);
-
-                if (FollowY)
-                    bll.SetCameraFollowY(true);
-
-                if (UnfollowY)
-                    bll.SetCameraFollowY(false);
             }
-        }
-
-        void OnTriggerExit2D(Collider2D collider)
-        {
-
         }
     }
 }

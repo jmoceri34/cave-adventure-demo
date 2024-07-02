@@ -117,17 +117,12 @@
         #endregion
 
         #region Event Methods
-        public void SetCameraFollowY(bool choice)
-        {
-            CameraService.SetCameraFollowY(choice);   
-        }
-
         public void SetCameraOffset(float? x, float? y)
         {
             CameraService.SetCameraOffset(x, y);
         }
         
-        public void SetYPosition(Vector2 relativeTo)
+        public void SetYPosition(Vector2? relativeTo)
         {
             // TODO: Make all camera offset changes be relative to some object and always unfollow Y after
             CameraService.SetYPosition(Model, relativeTo);
